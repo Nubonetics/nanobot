@@ -81,7 +81,7 @@ TASK-007 (Cron tests)    ─→ TASK-020 (Timezone support)
 ### TASK-001: Test Infrastructure Setup `[ ]`
 
 **REQ-ID:** FR-TEST-001
-**Owner:** Unassigned
+**Owner:** team-test
 **Branch:** `feature/FR-TEST-001-test-infra`
 **Dependencies:** None (can start immediately)
 
@@ -136,7 +136,7 @@ tests/
 ### TASK-002: Agent Loop Unit Tests `[ ]`
 
 **REQ-ID:** FR-CORE-001
-**Owner:** Unassigned
+**Owner:** team-core
 **Branch:** `feature/FR-CORE-001-agent-loop-tests`
 **Dependencies:** TASK-001 (test infrastructure)
 
@@ -170,7 +170,7 @@ tests/
 ### TASK-003: Session Manager Tests `[ ]`
 
 **REQ-ID:** FR-CORE-002
-**Owner:** Unassigned
+**Owner:** team-test
 **Branch:** `feature/FR-CORE-002-session-tests`
 **Dependencies:** TASK-001 (test infrastructure)
 
@@ -204,7 +204,7 @@ tests/
 ### TASK-004: Memory Store Tests `[ ]`
 
 **REQ-ID:** FR-CORE-004
-**Owner:** Unassigned
+**Owner:** team-core
 **Branch:** `feature/FR-CORE-004-memory-tests`
 **Dependencies:** TASK-001 (test infrastructure)
 
@@ -235,7 +235,7 @@ tests/
 ### TASK-005: Skills Loader Tests `[ ]`
 
 **REQ-ID:** FR-CORE-003
-**Owner:** Unassigned
+**Owner:** team-core
 **Branch:** `feature/FR-CORE-003-skills-tests`
 **Dependencies:** TASK-001 (test infrastructure)
 
@@ -268,7 +268,7 @@ tests/
 ### TASK-006: Tool Unit Tests `[ ]`
 
 **REQ-ID:** FR-TOOL-001, FR-TOOL-002, FR-TOOL-003
-**Owner:** Unassigned
+**Owner:** team-test
 **Branch:** `feature/FR-TOOL-001-tool-tests`
 **Dependencies:** TASK-001 (test infrastructure)
 
@@ -306,7 +306,7 @@ tests/
 ### TASK-007: Cron & Heartbeat Tests `[ ]`
 
 **REQ-ID:** FR-CRON-001, FR-CRON-002
-**Owner:** Unassigned
+**Owner:** team-infra
 **Branch:** `feature/FR-CRON-001-cron-tests`
 **Dependencies:** TASK-001 (test infrastructure)
 
@@ -341,7 +341,7 @@ tests/
 ### TASK-008: Channel Tests `[ ]`
 
 **REQ-ID:** FR-CHAN-001, FR-CHAN-002
-**Owner:** Unassigned
+**Owner:** team-infra
 **Branch:** `feature/FR-CHAN-001-channel-tests`
 **Dependencies:** TASK-001 (test infrastructure)
 
@@ -381,7 +381,7 @@ tests/
 ### TASK-009: Agent Integration Tests `[ ]`
 
 **REQ-ID:** FR-TEST-002
-**Owner:** Unassigned
+**Owner:** team-core
 **Branch:** `feature/FR-TEST-002-integration-tests`
 **Dependencies:** TASK-002 (agent loop tests)
 
@@ -411,7 +411,7 @@ tests/
 ### TASK-010: Config & Bus Tests `[ ]`
 
 **REQ-ID:** FR-TEST-001 (remaining)
-**Owner:** Unassigned
+**Owner:** team-infra
 **Branch:** `feature/FR-TEST-001-config-bus-tests`
 **Dependencies:** TASK-001 (test infrastructure)
 
@@ -451,7 +451,7 @@ tests/
 ### TASK-011: LLM Response Streaming `[ ]`
 
 **REQ-ID:** FR-PERF-001
-**Owner:** Unassigned
+**Owner:** team-core
 **Branch:** `feature/FR-PERF-001-streaming`
 **Dependencies:** TASK-009 (integration tests passing)
 
@@ -498,7 +498,7 @@ tests/
 ### TASK-012: API Rate Limiting `[ ]`
 
 **REQ-ID:** FR-PERF-002
-**Owner:** Unassigned
+**Owner:** team-core
 **Branch:** `feature/FR-PERF-002-rate-limiting`
 **Dependencies:** TASK-001 (test infrastructure)
 
@@ -557,7 +557,7 @@ tests/
 ### TASK-014: Enhanced Vision Support `[ ]`
 
 **REQ-ID:** FR-MODAL-001
-**Owner:** Unassigned
+**Owner:** team-core
 **Branch:** `feature/FR-MODAL-001-vision`
 **Dependencies:** TASK-009 (integration tests)
 
@@ -601,7 +601,7 @@ tests/
 ### TASK-015: Voice Message Transcription `[ ]`
 
 **REQ-ID:** FR-MODAL-002
-**Owner:** Unassigned
+**Owner:** team-infra
 **Branch:** `feature/FR-MODAL-002-voice`
 **Dependencies:** TASK-008 (channel tests)
 
@@ -646,7 +646,7 @@ tests/
 ### TASK-016: Discord Channel `[ ]`
 
 **REQ-ID:** FR-CHAN-003
-**Owner:** Unassigned
+**Owner:** team-infra
 **Branch:** `feature/FR-CHAN-003-discord`
 **Dependencies:** TASK-008 (channel tests)
 
@@ -692,7 +692,7 @@ tests/
 ### TASK-017: Slack Channel `[ ]`
 
 **REQ-ID:** FR-CHAN-004
-**Owner:** Unassigned
+**Owner:** team-infra
 **Branch:** `feature/FR-CHAN-004-slack`
 **Dependencies:** TASK-008 (channel tests)
 
@@ -740,7 +740,7 @@ tests/
 ### TASK-018: Configurable Session Limits `[ ]`
 
 **REQ-ID:** FR-MEM-001
-**Owner:** Unassigned
+**Owner:** team-core
 **Branch:** `feature/FR-MEM-001-session-limits`
 **Dependencies:** TASK-003 (session tests)
 
@@ -782,7 +782,7 @@ tests/
 ### TASK-019: Semantic Memory Search `[ ]`
 
 **REQ-ID:** FR-MEM-002
-**Owner:** Unassigned
+**Owner:** team-core
 **Branch:** `feature/FR-MEM-002-semantic-memory`
 **Dependencies:** TASK-004 (memory tests)
 
@@ -828,7 +828,7 @@ tests/
 ### TASK-020: Cron Timezone Support `[ ]`
 
 **REQ-ID:** FR-ROB-001
-**Owner:** Unassigned
+**Owner:** team-infra
 **Branch:** `feature/FR-ROB-001-cron-timezone`
 **Dependencies:** TASK-007 (cron tests)
 
@@ -870,7 +870,7 @@ tests/
 ### TASK-021: Graceful Crash Recovery `[ ]`
 
 **REQ-ID:** FR-ROB-002
-**Owner:** Unassigned
+**Owner:** team-infra
 **Branch:** `feature/FR-ROB-002-crash-recovery`
 **Dependencies:** TASK-007, TASK-010 (cron + bus tests)
 
@@ -916,9 +916,14 @@ tests/
 
 | Agent | Current Task | Status | Progress |
 |-------|-------------|--------|----------|
-| Unassigned | TASK-001 | :large_green_circle: Ready | 0% |
-| Unassigned | TASK-002–010 | :white_circle: Blocked | 0% |
-| Unassigned | TASK-011–021 | :white_circle: Blocked | 0% |
+| team-test | TASK-001 | :large_green_circle: Ready | 0% |
+| team-core | TASK-002, 004, 005 | :white_circle: Blocked (TASK-001) | 0% |
+| team-infra | TASK-007, 008, 010 | :white_circle: Blocked (TASK-001) | 0% |
+| team-test | TASK-003, 006 | :white_circle: Blocked (TASK-001) | 0% |
+| sprint-coordinator | TASK-013 | :white_circle: Blocked (Phase 2) | 0% |
+| code-reviewer | - | :white_circle: Idle (waiting for PRs) | - |
+| test-runner | - | :white_circle: Idle (waiting for tests) | - |
+| docs-agent | - | :white_circle: Idle (waiting for completions) | - |
 
 ---
 

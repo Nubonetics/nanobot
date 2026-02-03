@@ -10,30 +10,30 @@
 
 | REQ-ID | Test ID | Type | Status | Owner | Location |
 |--------|---------|------|--------|-------|----------|
-| FR-CORE-001 | TEST-CORE-001 | Integration | :black_circle: Not Started | - | - |
-| FR-CORE-002 | TEST-CORE-002 | Unit | :black_circle: Not Started | - | - |
-| FR-CORE-003 | TEST-CORE-003 | Unit | :black_circle: Not Started | - | - |
-| FR-CORE-004 | TEST-CORE-004 | Unit | :black_circle: Not Started | - | - |
-| FR-CORE-005 | TEST-CORE-005 | Integration | :black_circle: Not Started | - | - |
-| FR-TOOL-001 | TEST-TOOL-001 | Unit | :black_circle: Not Started | - | - |
-| FR-TOOL-002 | TEST-TOOL-002 | Unit | :black_circle: Not Started | - | - |
-| FR-TOOL-003 | TEST-TOOL-003 | Unit | :black_circle: Not Started | - | - |
-| FR-CHAN-001 | TEST-CHAN-001 | Integration | :black_circle: Not Started | - | - |
-| FR-CHAN-002 | TEST-CHAN-002 | Integration | :black_circle: Not Started | - | - |
-| FR-CRON-001 | TEST-CRON-001 | Unit | :black_circle: Not Started | - | - |
-| FR-CRON-002 | TEST-CRON-002 | Unit | :black_circle: Not Started | - | - |
-| FR-TEST-001 | TEST-TEST-001 | Unit | :black_circle: Not Started | - | - |
-| FR-TEST-002 | TEST-TEST-002 | Integration | :black_circle: Not Started | - | - |
-| FR-PERF-001 | TEST-PERF-001 | Integration | :black_circle: Not Started | - | - |
-| FR-PERF-002 | TEST-PERF-002 | Unit | :black_circle: Not Started | - | - |
-| FR-MODAL-001 | TEST-MODAL-001 | Integration | :black_circle: Not Started | - | - |
-| FR-MODAL-002 | TEST-MODAL-002 | Integration | :black_circle: Not Started | - | - |
-| FR-CHAN-003 | TEST-CHAN-003 | Integration | :black_circle: Not Started | - | - |
-| FR-CHAN-004 | TEST-CHAN-004 | Integration | :black_circle: Not Started | - | - |
-| FR-MEM-001 | TEST-MEM-001 | Unit | :black_circle: Not Started | - | - |
-| FR-MEM-002 | TEST-MEM-002 | Integration | :black_circle: Not Started | - | - |
-| FR-ROB-001 | TEST-ROB-001 | Unit | :black_circle: Not Started | - | - |
-| FR-ROB-002 | TEST-ROB-002 | Integration | :black_circle: Not Started | - | - |
+| FR-CORE-001 | TEST-CORE-001 | Integration | :black_circle: Not Started | team-core | tests/agent/test_loop.py |
+| FR-CORE-002 | TEST-CORE-002 | Unit | :black_circle: Not Started | team-test | tests/session/test_manager.py |
+| FR-CORE-003 | TEST-CORE-003 | Unit | :black_circle: Not Started | team-core | tests/agent/test_skills.py |
+| FR-CORE-004 | TEST-CORE-004 | Unit | :black_circle: Not Started | team-core | tests/agent/test_memory.py |
+| FR-CORE-005 | TEST-CORE-005 | Integration | :black_circle: Not Started | team-core | tests/agent/test_subagent.py |
+| FR-TOOL-001 | TEST-TOOL-001 | Unit | :black_circle: Not Started | team-test | tests/agent/tools/test_filesystem.py |
+| FR-TOOL-002 | TEST-TOOL-002 | Unit | :black_circle: Not Started | team-test | tests/agent/tools/test_shell.py |
+| FR-TOOL-003 | TEST-TOOL-003 | Unit | :black_circle: Not Started | team-test | tests/agent/tools/test_web.py |
+| FR-CHAN-001 | TEST-CHAN-001 | Integration | :black_circle: Not Started | team-infra | tests/channels/test_telegram.py |
+| FR-CHAN-002 | TEST-CHAN-002 | Integration | :black_circle: Not Started | team-infra | tests/channels/test_whatsapp.py |
+| FR-CRON-001 | TEST-CRON-001 | Unit | :black_circle: Not Started | team-infra | tests/cron/test_service.py |
+| FR-CRON-002 | TEST-CRON-002 | Unit | :black_circle: Not Started | team-infra | tests/heartbeat/test_service.py |
+| FR-TEST-001 | TEST-TEST-001 | Unit | :black_circle: Not Started | team-test | tests/ |
+| FR-TEST-002 | TEST-TEST-002 | Integration | :black_circle: Not Started | team-core | tests/agent/test_integration.py |
+| FR-PERF-001 | TEST-PERF-001 | Integration | :black_circle: Not Started | team-core | tests/providers/test_streaming.py |
+| FR-PERF-002 | TEST-PERF-002 | Unit | :black_circle: Not Started | team-core | tests/providers/test_ratelimit.py |
+| FR-MODAL-001 | TEST-MODAL-001 | Integration | :black_circle: Not Started | team-core | tests/agent/test_vision.py |
+| FR-MODAL-002 | TEST-MODAL-002 | Integration | :black_circle: Not Started | team-infra | tests/agent/test_voice.py |
+| FR-CHAN-003 | TEST-CHAN-003 | Integration | :black_circle: Not Started | team-infra | tests/channels/test_discord.py |
+| FR-CHAN-004 | TEST-CHAN-004 | Integration | :black_circle: Not Started | team-infra | tests/channels/test_slack.py |
+| FR-MEM-001 | TEST-MEM-001 | Unit | :black_circle: Not Started | team-core | tests/session/test_limits.py |
+| FR-MEM-002 | TEST-MEM-002 | Integration | :black_circle: Not Started | team-core | tests/agent/test_semantic_memory.py |
+| FR-ROB-001 | TEST-ROB-001 | Unit | :black_circle: Not Started | team-infra | tests/cron/test_timezone.py |
+| FR-ROB-002 | TEST-ROB-002 | Integration | :black_circle: Not Started | team-infra | tests/test_recovery.py |
 
 **Status Icons:**
 - :white_check_mark: Pass - All tests passing
@@ -48,7 +48,7 @@
 ### TEST-CORE-001: Agent Loop
 
 **REQ-ID:** FR-CORE-001
-**Owner:** -
+**Owner:** team-core
 **Type:** Integration
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/agent/test_loop.py`
@@ -78,7 +78,7 @@ describe('AgentLoop'):
 ### TEST-CORE-002: Session Manager
 
 **REQ-ID:** FR-CORE-002
-**Owner:** -
+**Owner:** team-test
 **Type:** Unit
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/session/test_manager.py`
@@ -113,7 +113,7 @@ describe('SessionManager'):
 ### TEST-CORE-003: Skills Loader
 
 **REQ-ID:** FR-CORE-003
-**Owner:** -
+**Owner:** team-core
 **Type:** Unit
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/agent/test_skills.py`
@@ -145,7 +145,7 @@ describe('SkillsLoader'):
 ### TEST-CORE-004: Memory Store
 
 **REQ-ID:** FR-CORE-004
-**Owner:** -
+**Owner:** team-core
 **Type:** Unit
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/agent/test_memory.py`
@@ -174,7 +174,7 @@ describe('MemoryStore'):
 ### TEST-CORE-005: Subagent Manager
 
 **REQ-ID:** FR-CORE-005
-**Owner:** -
+**Owner:** team-core
 **Type:** Integration
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/agent/test_subagent.py`
@@ -195,7 +195,7 @@ describe('SubagentManager'):
 ### TEST-TOOL-001: File Tools
 
 **REQ-ID:** FR-TOOL-001
-**Owner:** -
+**Owner:** team-test
 **Type:** Unit
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/agent/tools/test_filesystem.py`
@@ -230,7 +230,7 @@ describe('FileTools'):
 ### TEST-TOOL-002: Shell Tool
 
 **REQ-ID:** FR-TOOL-002
-**Owner:** -
+**Owner:** team-test
 **Type:** Unit
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/agent/tools/test_shell.py`
@@ -252,7 +252,7 @@ describe('ShellTool'):
 ### TEST-TOOL-003: Web Tools
 
 **REQ-ID:** FR-TOOL-003
-**Owner:** -
+**Owner:** team-test
 **Type:** Unit
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/agent/tools/test_web.py`
@@ -280,7 +280,7 @@ describe('WebTools'):
 ### TEST-CHAN-001: Telegram Channel
 
 **REQ-ID:** FR-CHAN-001
-**Owner:** -
+**Owner:** team-infra
 **Type:** Integration
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/channels/test_telegram.py`
@@ -311,7 +311,7 @@ describe('TelegramChannel'):
 ### TEST-CHAN-002: WhatsApp Channel
 
 **REQ-ID:** FR-CHAN-002
-**Owner:** -
+**Owner:** team-infra
 **Type:** Integration
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/channels/test_whatsapp.py`
@@ -336,7 +336,7 @@ describe('WhatsAppChannel'):
 ### TEST-CRON-001: Cron Service
 
 **REQ-ID:** FR-CRON-001
-**Owner:** -
+**Owner:** team-infra
 **Type:** Unit
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/cron/test_service.py`
@@ -371,7 +371,7 @@ describe('CronService'):
 ### TEST-CRON-002: Heartbeat Service
 
 **REQ-ID:** FR-CRON-002
-**Owner:** -
+**Owner:** team-infra
 **Type:** Unit
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/heartbeat/test_service.py`
@@ -392,7 +392,7 @@ describe('HeartbeatService'):
 ### TEST-TEST-001: Test Infrastructure
 
 **REQ-ID:** FR-TEST-001
-**Owner:** -
+**Owner:** team-test
 **Type:** Unit
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/`
@@ -413,7 +413,7 @@ describe('Test Infrastructure'):
 ### TEST-TEST-002: Agent Integration Tests
 
 **REQ-ID:** FR-TEST-002
-**Owner:** -
+**Owner:** team-core
 **Type:** Integration
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/agent/test_integration.py`
@@ -433,7 +433,7 @@ describe('Agent Integration'):
 ### TEST-PERF-001: Streaming
 
 **REQ-ID:** FR-PERF-001
-**Owner:** -
+**Owner:** team-core
 **Type:** Integration
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/providers/test_streaming.py`
@@ -454,7 +454,7 @@ describe('LLM Streaming'):
 ### TEST-PERF-002: Rate Limiting
 
 **REQ-ID:** FR-PERF-002
-**Owner:** -
+**Owner:** team-core
 **Type:** Unit
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/providers/test_ratelimit.py`
@@ -473,7 +473,7 @@ describe('Rate Limiting'):
 ### TEST-MODAL-001: Vision Support
 
 **REQ-ID:** FR-MODAL-001
-**Owner:** -
+**Owner:** team-core
 **Type:** Integration
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/agent/test_vision.py`
@@ -493,7 +493,7 @@ describe('Vision Support'):
 ### TEST-MODAL-002: Voice Transcription
 
 **REQ-ID:** FR-MODAL-002
-**Owner:** -
+**Owner:** team-infra
 **Type:** Integration
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/agent/test_voice.py`
@@ -512,7 +512,7 @@ describe('Voice Transcription'):
 ### TEST-CHAN-003: Discord Channel
 
 **REQ-ID:** FR-CHAN-003
-**Owner:** -
+**Owner:** team-infra
 **Type:** Integration
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/channels/test_discord.py`
@@ -532,7 +532,7 @@ describe('DiscordChannel'):
 ### TEST-CHAN-004: Slack Channel
 
 **REQ-ID:** FR-CHAN-004
-**Owner:** -
+**Owner:** team-infra
 **Type:** Integration
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/channels/test_slack.py`
@@ -552,7 +552,7 @@ describe('SlackChannel'):
 ### TEST-MEM-001: Configurable Session Limits
 
 **REQ-ID:** FR-MEM-001
-**Owner:** -
+**Owner:** team-core
 **Type:** Unit
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/session/test_limits.py`
@@ -571,7 +571,7 @@ describe('Session Limits'):
 ### TEST-MEM-002: Semantic Memory
 
 **REQ-ID:** FR-MEM-002
-**Owner:** -
+**Owner:** team-core
 **Type:** Integration
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/agent/test_semantic_memory.py`
@@ -591,7 +591,7 @@ describe('Semantic Memory'):
 ### TEST-ROB-001: Cron Timezone
 
 **REQ-ID:** FR-ROB-001
-**Owner:** -
+**Owner:** team-infra
 **Type:** Unit
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/cron/test_timezone.py`
@@ -610,7 +610,7 @@ describe('Cron Timezone'):
 ### TEST-ROB-002: Crash Recovery
 
 **REQ-ID:** FR-ROB-002
-**Owner:** -
+**Owner:** team-infra
 **Type:** Integration
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/test_recovery.py`

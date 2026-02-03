@@ -19,7 +19,7 @@
 
 **FR-CORE-001** `[L]` LLM-powered agent loop with tool calling
 
-**Owner:** -
+**Owner:** team-core
 **Branch:** `main`
 **Dependencies:** None
 
@@ -40,7 +40,7 @@
 
 **FR-CORE-002** `[L]` Session persistence with conversation history
 
-**Owner:** -
+**Owner:** team-core
 **Branch:** `main`
 **Dependencies:** None
 
@@ -60,7 +60,7 @@
 
 **FR-CORE-003** `[L]` Markdown-based extensible skill system
 
-**Owner:** -
+**Owner:** team-core
 **Branch:** `main`
 **Dependencies:** None
 
@@ -81,7 +81,7 @@
 
 **FR-CORE-004** `[L]` Persistent memory (long-term + daily notes)
 
-**Owner:** -
+**Owner:** team-core
 **Branch:** `main`
 **Dependencies:** None
 
@@ -101,7 +101,7 @@
 
 **FR-CORE-005** `[L]` Background subagent execution
 
-**Owner:** -
+**Owner:** team-core
 **Branch:** `main`
 **Dependencies:** FR-CORE-001
 
@@ -123,7 +123,7 @@
 
 **FR-TOOL-001** `[L]` File operations (read, write, edit, list_dir)
 
-**Owner:** -
+**Owner:** team-core
 **Branch:** `main`
 **Dependencies:** None
 
@@ -143,7 +143,7 @@
 
 **FR-TOOL-002** `[L]` Shell command execution
 
-**Owner:** -
+**Owner:** team-core
 **Branch:** `main`
 **Dependencies:** None
 
@@ -163,7 +163,7 @@
 
 **FR-TOOL-003** `[L]` Web access (search + fetch)
 
-**Owner:** -
+**Owner:** team-core
 **Branch:** `main`
 **Dependencies:** None
 
@@ -184,7 +184,7 @@
 
 **FR-CHAN-001** `[L]` Telegram channel with media support
 
-**Owner:** -
+**Owner:** team-infra
 **Branch:** `main`
 **Dependencies:** FR-CORE-001
 
@@ -205,7 +205,7 @@
 
 **FR-CHAN-002** `[L]` WhatsApp channel via Node.js bridge
 
-**Owner:** -
+**Owner:** team-infra
 **Branch:** `main`
 **Dependencies:** FR-CORE-001
 
@@ -228,7 +228,7 @@
 
 **FR-CRON-001** `[L]` Cron-based job scheduling
 
-**Owner:** -
+**Owner:** team-infra
 **Branch:** `main`
 **Dependencies:** FR-CORE-001
 
@@ -249,7 +249,7 @@
 
 **FR-CRON-002** `[L]` Heartbeat periodic check
 
-**Owner:** -
+**Owner:** team-infra
 **Branch:** `main`
 **Dependencies:** FR-CORE-001
 
@@ -271,7 +271,7 @@
 
 **FR-TEST-001** `[ ]` Unit test suite for core components
 
-**Owner:** Unassigned
+**Owner:** team-test
 **Branch:** -
 **Dependencies:** None
 
@@ -296,7 +296,7 @@
 
 **FR-TEST-002** `[ ]` Integration tests for agent loop
 
-**Owner:** Unassigned
+**Owner:** team-core
 **Branch:** -
 **Dependencies:** FR-TEST-001
 
@@ -319,7 +319,7 @@
 
 **FR-PERF-001** `[ ]` LLM response streaming
 
-**Owner:** Unassigned
+**Owner:** team-core
 **Branch:** -
 **Dependencies:** FR-CORE-001
 
@@ -340,7 +340,7 @@
 
 **FR-PERF-002** `[ ]` API rate limiting and retry logic
 
-**Owner:** Unassigned
+**Owner:** team-core
 **Branch:** -
 **Dependencies:** FR-CORE-001
 
@@ -362,7 +362,7 @@
 
 **FR-MODAL-001** `[ ]` Enhanced vision support (image analysis)
 
-**Owner:** Unassigned
+**Owner:** team-core
 **Branch:** -
 **Dependencies:** FR-CORE-001, FR-CHAN-001
 
@@ -383,7 +383,7 @@
 
 **FR-MODAL-002** `[ ]` Voice message transcription
 
-**Owner:** Unassigned
+**Owner:** team-infra
 **Branch:** -
 **Dependencies:** FR-CHAN-001
 
@@ -405,7 +405,7 @@
 
 **FR-CHAN-003** `[ ]` Discord channel
 
-**Owner:** Unassigned
+**Owner:** team-infra
 **Branch:** -
 **Dependencies:** FR-CORE-001
 
@@ -426,7 +426,7 @@
 
 **FR-CHAN-004** `[ ]` Slack channel
 
-**Owner:** Unassigned
+**Owner:** team-infra
 **Branch:** -
 **Dependencies:** FR-CORE-001
 
@@ -449,7 +449,7 @@
 
 **FR-MEM-001** `[ ]` Configurable session history limits
 
-**Owner:** Unassigned
+**Owner:** team-core
 **Branch:** -
 **Dependencies:** FR-CORE-002
 
@@ -469,7 +469,7 @@
 
 **FR-MEM-002** `[ ]` Semantic memory search
 
-**Owner:** Unassigned
+**Owner:** team-core
 **Branch:** -
 **Dependencies:** FR-CORE-004
 
@@ -491,7 +491,7 @@
 
 **FR-ROB-001** `[ ]` Cron timezone support
 
-**Owner:** Unassigned
+**Owner:** team-infra
 **Branch:** -
 **Dependencies:** FR-CRON-001
 
@@ -511,7 +511,7 @@
 
 **FR-ROB-002** `[ ]` Graceful crash recovery
 
-**Owner:** Unassigned
+**Owner:** team-infra
 **Branch:** -
 **Dependencies:** FR-CORE-001, FR-CRON-001
 

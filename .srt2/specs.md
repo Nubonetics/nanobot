@@ -160,6 +160,28 @@ nanobot/
 
 ---
 
+## Agent Roster
+
+| Agent | Type | Scope | Instruction File |
+|-------|------|-------|-----------------|
+| **sprint-coordinator** | Orchestrator | Task assignment, merges, dependency tracking | `.claude/sprint-coordinator.md` |
+| **team-core** | Implementation | Agent loop, providers, context, memory, skills, session | `.claude/team-core.md` |
+| **team-infra** | Implementation | Channels, bus, config, cron, heartbeat, CLI | `.claude/team-infra.md` |
+| **team-test** | Implementation | Test infrastructure, fixtures, cross-cutting tests | `.claude/team-test.md` |
+| **code-reviewer** | Cross-cutting | PR review, security audit, standards enforcement | `.claude/code-reviewer.md` |
+| **test-runner** | Cross-cutting | Targeted test execution, CI validation | `.claude/test-runner.md` |
+| **docs-agent** | Cross-cutting | Documentation, SRT² sync, changelog | `.claude/docs-agent.md` |
+
+### Domain Ownership
+
+```
+team-core  → nanobot/agent/, nanobot/providers/, nanobot/session/
+team-infra → nanobot/channels/, nanobot/bus/, nanobot/config/, nanobot/cron/, nanobot/heartbeat/, nanobot/cli/
+team-test  → tests/ (scaffolding, conftest.py, cross-cutting suites)
+```
+
+---
+
 ## Agent Loading Strategy
 
 **Agents should load:**
