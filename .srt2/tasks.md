@@ -1,68 +1,83 @@
 # Multi-Agent Task Execution
 
+> **Current Milestone:** Milestone 1 — Test Foundation
 > **Current Phase:** Phase 1 — Test Infrastructure & Core Coverage
 > **Next Phase:** Phase 2 — Streaming, Multi-Modal & New Channels
 
 ---
 
-## Execution Strategy
+## Milestone 1: Test Foundation
 
-### Phase Overview
+**Goal:** Establish baseline test coverage for all 12 legacy components. Go from 0% to full unit + integration coverage before any feature work begins.
 
-```
-Phase 1: Test Infrastructure & Core Coverage (TASK-001 through TASK-010)
-  - Foundation: pytest setup, fixtures, mock provider
-  - Parallel: unit tests for all core components
-  - Integration checkpoint
+**Tasks:** TASK-001 through TASK-010 (10 tasks)
+**Agents:** team-test, team-core, team-infra (3 parallel)
+**Cross-cutting:** code-reviewer (PR review), test-runner (validation), docs-agent (sync)
 
-Phase 2: Streaming & Performance (TASK-011 through TASK-013)
-  - LLM streaming support
-  - Rate limiting & retry logic
+### Exit Criteria
 
-Phase 3: Multi-Modal (TASK-014 through TASK-015)
-  - Enhanced vision support
-  - Voice transcription
+- [ ] All 12 legacy REQ-IDs have passing test suites
+- [ ] `pytest tests/` runs clean with zero external API calls
+- [ ] Coverage report generated (target: all public methods covered)
+- [ ] code-reviewer signs off on test quality
+- [ ] docs-agent updates SRT² docs with final status
+- [ ] Tag: `milestone-1-complete`
 
-Phase 4: New Channels (TASK-016 through TASK-017)
-  - Discord integration
-  - Slack integration
-
-Phase 5: Memory & Robustness (TASK-018 through TASK-021)
-  - Configurable session limits
-  - Semantic memory search
-  - Cron timezone support
-  - Crash recovery
-```
-
-### Parallelization Plan (Phase 1)
+### Parallelization Plan
 
 ```
-Day 1: TASK-001 (sequential, foundational — test infrastructure)
-Day 2: TASK-002, TASK-003, TASK-004, TASK-005 (parallel, depend on TASK-001)
-Day 3: TASK-006, TASK-007, TASK-008 (parallel, depend on TASK-001)
-Day 4: TASK-009, TASK-010 (parallel, depend on TASK-002+)
-Day 5: Integration checkpoint
+Day 1:  team-test  → TASK-001 (pytest infra, fixtures, mock provider)
+        ──────────────────────────────────────────────────────────────
+Day 2:  team-core  → TASK-002 (agent loop), TASK-004 (memory), TASK-005 (skills)
+        team-test  → TASK-003 (sessions), TASK-006 (tools)
+        team-infra → TASK-007 (cron/heartbeat), TASK-008 (channels), TASK-010 (config/bus)
+        ──────────────────────────────────────────────────────────────
+Day 3:  team-core  → TASK-009 (agent integration)
+        code-reviewer → review all PRs from Day 2
+        ──────────────────────────────────────────────────────────────
+Day 4:  test-runner → full suite validation
+        docs-agent  → SRT² sync, changelog entry
+        sprint-coordinator → merge to main, tag milestone
 ```
+
+### Agent Workload
+
+| Agent | Tasks | Files Touched |
+|-------|-------|---------------|
+| team-test | TASK-001, 003, 006 | `tests/conftest.py`, `tests/session/`, `tests/agent/tools/` |
+| team-core | TASK-002, 004, 005, 009 | `tests/agent/test_loop.py`, `test_memory.py`, `test_skills.py`, `test_integration.py` |
+| team-infra | TASK-007, 008, 010 | `tests/cron/`, `tests/channels/`, `tests/config/`, `tests/bus/` |
+| code-reviewer | PR review (Day 3) | Read-only |
+| test-runner | Validation (Day 4) | Read-only |
+| docs-agent | SRT² sync (Day 4) | `.srt2/*.md`, `CHANGELOG.md` |
+| sprint-coordinator | Merge + tag (Day 4) | `main` branch |
+
+No file overlap between implementation agents — parallel safe.
 
 ### Critical Path
 ```
-TASK-001 → TASK-002 → TASK-009 (agent integration tests)
+TASK-001 → TASK-002 → TASK-009 → milestone sign-off
 ```
 
 ### Dependency Graph
 
 ```
-TASK-001 (Test Infra)
-    ├─→ TASK-002 (Agent Loop tests)
-    │       └─→ TASK-009 (Agent Integration tests)
-    ├─→ TASK-003 (Session tests)
-    ├─→ TASK-004 (Memory tests)
-    ├─→ TASK-005 (Skills tests)
-    ├─→ TASK-006 (Tool tests)
-    ├─→ TASK-007 (Cron tests)
-    ├─→ TASK-008 (Channel tests)
-    └─→ TASK-010 (Config & Bus tests)
+TASK-001 (Test Infra) [team-test]
+    ├─→ TASK-002 (Agent Loop tests) [team-core]
+    │       └─→ TASK-009 (Agent Integration tests) [team-core]
+    ├─→ TASK-003 (Session tests) [team-test]
+    ├─→ TASK-004 (Memory tests) [team-core]
+    ├─→ TASK-005 (Skills tests) [team-core]
+    ├─→ TASK-006 (Tool tests) [team-test]
+    ├─→ TASK-007 (Cron tests) [team-infra]
+    ├─→ TASK-008 (Channel tests) [team-infra]
+    └─→ TASK-010 (Config & Bus tests) [team-infra]
+```
 
+### Post-Milestone Dependencies
+
+Milestone 1 completion unlocks:
+```
 TASK-009 (Integration) ─→ TASK-011 (Streaming)
                         ─→ TASK-014 (Vision)
 
@@ -73,6 +88,18 @@ TASK-003 (Session tests) ─→ TASK-018 (Session limits)
 TASK-004 (Memory tests)  ─→ TASK-019 (Semantic memory)
 TASK-007 (Cron tests)    ─→ TASK-020 (Timezone support)
 ```
+
+---
+
+## Future Milestones (Preview)
+
+| Milestone | Phase | Tasks | Goal |
+|-----------|-------|-------|------|
+| **M1: Test Foundation** | Phase 1 | TASK-001–010 | Baseline test coverage for all legacy code |
+| M2: Performance | Phase 2 | TASK-011–013 | Streaming + rate limiting |
+| M3: Multi-Modal | Phase 3 | TASK-014–015 | Vision + voice support |
+| M4: Channels | Phase 4 | TASK-016–017 | Discord + Slack |
+| M5: Robustness | Phase 5 | TASK-018–021 | Memory, sessions, crash recovery |
 
 ---
 
@@ -912,18 +939,19 @@ tests/
 
 ---
 
-## Agent Status Board
+## Agent Status Board (Milestone 1)
 
-| Agent | Current Task | Status | Progress |
-|-------|-------------|--------|----------|
-| team-test | TASK-001 | :large_green_circle: Ready | 0% |
-| team-core | TASK-002, 004, 005 | :white_circle: Blocked (TASK-001) | 0% |
-| team-infra | TASK-007, 008, 010 | :white_circle: Blocked (TASK-001) | 0% |
-| team-test | TASK-003, 006 | :white_circle: Blocked (TASK-001) | 0% |
-| sprint-coordinator | TASK-013 | :white_circle: Blocked (Phase 2) | 0% |
-| code-reviewer | - | :white_circle: Idle (waiting for PRs) | - |
-| test-runner | - | :white_circle: Idle (waiting for tests) | - |
-| docs-agent | - | :white_circle: Idle (waiting for completions) | - |
+| Agent | Milestone 1 Tasks | Day | Status |
+|-------|-------------------|-----|--------|
+| team-test | TASK-001 | 1 | :large_green_circle: Ready |
+| team-core | TASK-002, 004, 005 | 2 | :white_circle: Blocked (TASK-001) |
+| team-test | TASK-003, 006 | 2 | :white_circle: Blocked (TASK-001) |
+| team-infra | TASK-007, 008, 010 | 2 | :white_circle: Blocked (TASK-001) |
+| team-core | TASK-009 | 3 | :white_circle: Blocked (TASK-002) |
+| code-reviewer | PR review | 3 | :white_circle: Idle (waiting for PRs) |
+| test-runner | Full suite validation | 4 | :white_circle: Idle (waiting for tests) |
+| docs-agent | SRT² sync + changelog | 4 | :white_circle: Idle (waiting for completions) |
+| sprint-coordinator | Merge + tag `milestone-1-complete` | 4 | :white_circle: Idle (waiting for sign-off) |
 
 ---
 
