@@ -8,7 +8,7 @@
 
 ## Milestone 1: Test Foundation
 
-**Goal:** Establish baseline test coverage for all 12 legacy components. Go from 0% to full unit + integration coverage before any feature work begins.
+**Goal:** Establish baseline test coverage for all 13 legacy components (including vision). Go from 0% to full unit + integration coverage before any feature work begins.
 
 **Tasks:** TASK-001 through TASK-010 (10 tasks)
 **Agents:** team-test, team-core, team-infra (3 parallel)
@@ -16,7 +16,7 @@
 
 ### Exit Criteria
 
-- [ ] All 12 legacy REQ-IDs have passing test suites
+- [ ] All 13 legacy REQ-IDs have passing test suites
 - [ ] `pytest tests/` runs clean with zero external API calls
 - [ ] Coverage report generated (target: all public methods covered)
 - [ ] code-reviewer signs off on test quality
@@ -71,7 +71,8 @@ TASK-001 (Test Infra) [team-test]
     ├─→ TASK-006 (Tool tests) [team-test]
     ├─→ TASK-007 (Cron tests) [team-infra]
     ├─→ TASK-008 (Channel tests) [team-infra]
-    └─→ TASK-010 (Config & Bus tests) [team-infra]
+    ├─→ TASK-010 (Config & Bus tests) [team-infra]
+    └─→ TASK-014 (Vision tests) [team-core]  ← moved from Phase 3 (already implemented)
 ```
 
 ### Post-Milestone Dependencies
@@ -79,9 +80,9 @@ TASK-001 (Test Infra) [team-test]
 Milestone 1 completion unlocks:
 ```
 TASK-009 (Integration) ─→ TASK-011 (Streaming)
-                        ─→ TASK-014 (Vision)
 
-TASK-008 (Channel tests) ─→ TASK-016 (Discord)
+TASK-008 (Channel tests) ─→ TASK-015 (Voice transcription)
+                         ─→ TASK-016 (Discord)
                          ─→ TASK-017 (Slack)
 
 TASK-003 (Session tests) ─→ TASK-018 (Session limits)
@@ -95,9 +96,9 @@ TASK-007 (Cron tests)    ─→ TASK-020 (Timezone support)
 
 | Milestone | Phase | Tasks | Goal |
 |-----------|-------|-------|------|
-| **M1: Test Foundation** | Phase 1 | TASK-001–010 | Baseline test coverage for all legacy code |
+| **M1: Test Foundation** | Phase 1 | TASK-001–010, TASK-014 | Baseline test coverage for all legacy code (incl. vision) |
 | M2: Performance | Phase 2 | TASK-011–013 | Streaming + rate limiting |
-| M3: Multi-Modal | Phase 3 | TASK-014–015 | Vision + voice support |
+| M3: Multi-Modal | Phase 3 | TASK-015 | Voice transcription |
 | M4: Channels | Phase 4 | TASK-016–017 | Discord + Slack |
 | M5: Robustness | Phase 5 | TASK-018–021 | Memory, sessions, crash recovery |
 
@@ -348,6 +349,7 @@ tests/
 - next_run computation for all schedule types
 - one-time job deletion
 - callback execution
+- channel delivery (deliver=True, channel, to fields in CronPayload)
 
 # tests/heartbeat/test_service.py
 - trigger with tasks in HEARTBEAT.md
@@ -380,9 +382,11 @@ tests/
 ```python
 # tests/channels/test_telegram.py (mocked python-telegram-bot)
 - message handling (text, photo, voice)
-- allow_from filtering
+- composite sender_id format ({user_id}|{username})
+- allow_from filtering with composite IDs
 - outbound send
 - markdown-to-HTML conversion
+- /start command handler
 
 # tests/channels/test_whatsapp.py (mocked websockets)
 - WebSocket message handling
@@ -581,47 +585,41 @@ tests/
 
 ## Phase 3: Multi-Modal
 
-### TASK-014: Enhanced Vision Support `[ ]`
+### TASK-014: Vision Support Tests `[ ]`
 
 **REQ-ID:** FR-MODAL-001
 **Owner:** team-core
-**Branch:** `feature/FR-MODAL-001-vision`
-**Dependencies:** TASK-009 (integration tests)
+**Branch:** `feature/FR-MODAL-001-vision-tests`
+**Dependencies:** TASK-001 (test infrastructure)
 
 **Context Budget:**
 - Load: FR-MODAL-001, agent/context.py, channels/telegram.py
 - Total: ~3k tokens
 
+**NOTE:** Vision support is already implemented as legacy code:
+- `context.py:_build_user_content()` handles base64 image encoding (commits `f4b081b`, `ac39025`)
+- `telegram.py:_on_message()` auto-downloads photos and passes media paths
+- Supported MIME types: JPEG, PNG, GIF, WebP via `mimetypes.guess_type()`
+- Non-image media gracefully falls back to text-only content
+
 **Implementation:**
-```python
-# nanobot/agent/context.py
-- Detect vision-capable models from config
-- Include base64 images in message content array
-- Support JPEG, PNG, GIF, WebP MIME types
-
-# nanobot/channels/telegram.py
-- Auto-download photos on receive
-- Pass media paths to agent context
-
-# nanobot/providers/litellm_provider.py
-- Pass image content blocks to LiteLLM
-- Fallback: describe "image attached" for non-vision models
-```
-
-**Tests:**
 ```python
 # tests/agent/test_vision.py
 - base64 encoding of test image
-- context includes image content block
-- fallback for non-vision model
+- context includes image_url content block when media present
+- text-only fallback when no images
+- multiple image support
+- non-image media ignored gracefully
 ```
 
 **Acceptance:**
-- Images analyzed by vision-capable LLMs
-- Graceful fallback for text-only models
+- Unit tests cover existing vision implementation
+- Tests use fixture images (no external downloads)
+- Confirms base64 encoding and content block format
 
-**Status:** :black_circle: Blocked
-**Blocked By:** TASK-009
+**Status:** :black_circle: Waiting
+**Blocked By:** TASK-001
+**Can Start:** After TASK-001
 
 ---
 
@@ -863,13 +861,12 @@ tests/
 - Load: FR-ROB-001, cron/types.py, cron/service.py
 - Total: ~2.5k tokens
 
+**NOTE:** The `tz` field already exists in `CronSchedule` (types.py) and is persisted in the JSON store. However, `_compute_next_run()` does not yet pass `tz` to croniter. This task wires up the existing field.
+
 **Implementation:**
 ```python
-# nanobot/cron/types.py
-- Add timezone field to CronSchedule (default: system TZ)
-
 # nanobot/cron/service.py
-- Pass timezone to croniter for expression evaluation
+- Pass schedule.tz to croniter for expression evaluation
 - Store and display times in user timezone
 
 # nanobot/cli/commands.py
@@ -944,7 +941,7 @@ tests/
 | Agent | Milestone 1 Tasks | Day | Status |
 |-------|-------------------|-----|--------|
 | team-test | TASK-001 | 1 | :large_green_circle: Ready |
-| team-core | TASK-002, 004, 005 | 2 | :white_circle: Blocked (TASK-001) |
+| team-core | TASK-002, 004, 005, 014 | 2 | :white_circle: Blocked (TASK-001) |
 | team-test | TASK-003, 006 | 2 | :white_circle: Blocked (TASK-001) |
 | team-infra | TASK-007, 008, 010 | 2 | :white_circle: Blocked (TASK-001) |
 | team-core | TASK-009 | 3 | :white_circle: Blocked (TASK-002) |
@@ -958,9 +955,10 @@ tests/
 ## Merge Schedule
 
 ```
-Phase 1:
+Phase 1 (Test Foundation):
   [ ] TASK-001 → main (test infra)
-  [ ] TASK-002 through TASK-010 → main (all tests)
+  [ ] TASK-002 through TASK-010 → main (core + infra tests)
+  [ ] TASK-014 → main (vision tests — legacy code, tests only)
   [ ] Integration checkpoint
 
 Phase 2:
@@ -969,8 +967,7 @@ Phase 2:
   [ ] TASK-013: Integration checkpoint
 
 Phase 3:
-  [ ] TASK-014 → main (vision)
-  [ ] TASK-015 → main (voice)
+  [ ] TASK-015 → main (voice transcription)
 
 Phase 4:
   [ ] TASK-016 → main (Discord)
@@ -1028,4 +1025,4 @@ Phase 5:
 
 ---
 
-*Last updated: 2026-02-03 by Orchestrator*
+*Last updated: 2026-02-04 by docs-agent (SRT² sync after main branch commits)*

@@ -104,6 +104,73 @@
 
 ---
 
+### [2025-02-02] Vision Support via Base64 Image Encoding
+
+**REQ-IDs:** FR-MODAL-001, FR-CHAN-001
+
+**Context:** Users send images via Telegram and expect the assistant to understand them. Need vision support without a dedicated vision pipeline.
+
+**Decision:** Inline base64 image encoding in user message content blocks. Telegram auto-downloads photos; `ContextBuilder._build_user_content()` encodes them as `image_url` content parts for vision-capable LLMs.
+
+**Alternatives:**
+- Separate vision API call: Extra latency, more complex routing
+- Image description pre-processing: Lossy, adds another model dependency
+
+**Consequences:**
+- ✅ Works with any vision-capable model (Claude, GPT-4o, Gemini)
+- ✅ Zero additional infrastructure
+- ⚠️ Base64 increases token count for large images
+- ⚠️ Non-vision models receive text fallback only
+
+---
+
+### [2025-02-02] Composite Sender ID Format for Telegram
+
+**REQ-IDs:** FR-CHAN-001
+
+**Context:** Telegram allow-list filtering used only usernames, which are optional and mutable. Numeric user IDs are stable but not human-readable.
+
+**Decision:** Use composite sender ID format `{user_id}|{username}` (e.g., `123456789|johndoe`). Allow-list matching checks against both the numeric ID and the username portion.
+
+**Alternatives:**
+- Numeric ID only: Harder for users to configure allow-lists
+- Username only: Unreliable (usernames are optional and changeable)
+
+**Consequences:**
+- ✅ Stable identification via numeric ID
+- ✅ Human-readable via username
+- ✅ Backward-compatible with username-only allow-lists
+
+---
+
+### [2025-02-02] Gateway Port Changed to 18790
+
+**REQ-IDs:** FR-CHAN-001, FR-CHAN-002
+
+**Context:** Default gateway port 3000 conflicted with OpenClaw and other common dev services.
+
+**Decision:** Change default gateway port to 18790 to avoid conflicts.
+
+**Consequences:**
+- ✅ No port conflicts with common services
+- ⚠️ Existing users must update their config or use `--port` flag
+
+---
+
+### [2025-02-02] Cron Job Channel Delivery
+
+**REQ-IDs:** FR-CRON-001
+
+**Context:** Scheduled jobs need to deliver responses to specific chat channels (e.g., send a daily summary to Telegram).
+
+**Decision:** Added `--deliver`, `--channel`, and `--to` flags to `cron add` CLI. CronPayload includes `deliver: bool`, `channel: str`, and `to: str` fields. Gateway routes cron job responses to the specified channel via the message bus.
+
+**Consequences:**
+- ✅ Scheduled reminders can reach users on any channel
+- ✅ Channel-agnostic: works with Telegram, WhatsApp, or future channels
+
+---
+
 ## Technical Stack
 
 **Language:** Python 3.11+
@@ -116,6 +183,7 @@
 **Web Extraction:** readability-lxml
 **Logging:** loguru
 **Build:** Hatchling
+**Install:** pip, uv
 
 ---
 
@@ -196,4 +264,4 @@ team-test  → tests/ (scaffolding, conftest.py, cross-cutting suites)
 
 ---
 
-*Last updated: 2026-02-03*
+*Last updated: 2026-02-04*

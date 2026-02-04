@@ -26,7 +26,7 @@
 | FR-TEST-002 | TEST-TEST-002 | Integration | :black_circle: Not Started | team-core | tests/agent/test_integration.py |
 | FR-PERF-001 | TEST-PERF-001 | Integration | :black_circle: Not Started | team-core | tests/providers/test_streaming.py |
 | FR-PERF-002 | TEST-PERF-002 | Unit | :black_circle: Not Started | team-core | tests/providers/test_ratelimit.py |
-| FR-MODAL-001 | TEST-MODAL-001 | Integration | :black_circle: Not Started | team-core | tests/agent/test_vision.py |
+| FR-MODAL-001 | TEST-MODAL-001 | Unit | :black_circle: Not Started | team-core | tests/agent/test_vision.py |
 | FR-MODAL-002 | TEST-MODAL-002 | Integration | :black_circle: Not Started | team-infra | tests/agent/test_voice.py |
 | FR-CHAN-003 | TEST-CHAN-003 | Integration | :black_circle: Not Started | team-infra | tests/channels/test_discord.py |
 | FR-CHAN-004 | TEST-CHAN-004 | Integration | :black_circle: Not Started | team-infra | tests/channels/test_slack.py |
@@ -292,16 +292,22 @@ describe('TelegramChannel'):
     - receives photo and downloads media
     - receives voice message
     - receives document
+    - generates composite sender_id ({user_id}|{username})
 
     # Permissions
-    - allows messages from allowed user IDs
+    - allows messages from allowed user IDs (numeric)
     - allows messages from allowed usernames
+    - allows composite sender_id matching
     - rejects messages from unknown senders
 
     # Outbound
     - sends text message to chat
     - converts markdown to Telegram HTML
     - handles send errors gracefully
+    - falls back to plain text on HTML parse failure
+
+    # Commands
+    - /start command returns greeting
 ```
 
 **Run:** `pytest tests/channels/test_telegram.py`
@@ -362,6 +368,11 @@ describe('CronService'):
     - calls callback when job is due
     - tracks last_run and last_status
     - records errors in last_error
+
+    # Channel delivery
+    - CronPayload stores deliver, channel, to fields
+    - job callback receives delivery config
+    - persistent JSON round-trip preserves delivery fields
 ```
 
 **Run:** `pytest tests/cron/test_service.py`
@@ -470,20 +481,25 @@ describe('Rate Limiting'):
 
 ---
 
-### TEST-MODAL-001: Vision Support
+### TEST-MODAL-001: Vision Support (Legacy Code)
 
 **REQ-ID:** FR-MODAL-001
 **Owner:** team-core
-**Type:** Integration
+**Type:** Unit
 **Status:** :black_circle: Not Started (0/0)
 **Location:** `tests/agent/test_vision.py`
 
+**NOTE:** Tests existing legacy implementation in `context.py:_build_user_content()` and `telegram.py` photo handling. No new feature code needed.
+
 ```python
 describe('Vision Support'):
-    - includes base64 image in LLM context
-    - supports JPEG, PNG, GIF, WebP
-    - Telegram photo auto-download and inclusion
-    - graceful fallback for non-vision models
+    # ContextBuilder._build_user_content()
+    - returns plain text when no media
+    - returns image_url content block for JPEG/PNG/GIF/WebP
+    - encodes images as base64 data URIs
+    - ignores non-image media files
+    - handles multiple images
+    - returns text-only when media paths don't exist
 ```
 
 **Run:** `pytest tests/agent/test_vision.py`

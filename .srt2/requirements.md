@@ -194,12 +194,13 @@
 - Long polling (no webhook needed)
 - Text, photo, voice, audio, document handling
 - Media downloads to ~/.nanobot/media
-- Allow-list filtering by user ID or username
+- Allow-list filtering by composite sender ID (`{user_id}|{username}` format)
 - Markdown-to-Telegram-HTML conversion
+- /start command handler with greeting
 
 **Test:** `TEST-CHAN-001`
 
-**Commits:** pre-SRT²
+**Commits:** pre-SRT², `1663acd`
 
 ---
 
@@ -240,10 +241,12 @@
 - One-shot jobs auto-delete or disable after run
 - Recurring jobs recompute next run
 - CLI management: add, list, remove, enable, disable, run
+- Channel delivery: `--deliver`, `--channel`, `--to` flags route job responses to chat channels
+- Timezone field in schedule (schema present, evaluation not yet timezone-aware)
 
 **Test:** `TEST-CRON-001`
 
-**Commits:** pre-SRT²
+**Commits:** pre-SRT², `30d6e4b`
 
 ---
 
@@ -360,24 +363,24 @@
 
 ## Multi-Modal
 
-**FR-MODAL-001** `[ ]` Enhanced vision support (image analysis)
+**FR-MODAL-001** `[L]` Vision support (image analysis)
 
 **Owner:** team-core
-**Branch:** -
+**Branch:** `main`
 **Dependencies:** FR-CORE-001, FR-CHAN-001
 
 **Why:** Users send images via chat and expect the assistant to understand them
 
 **Acceptance Criteria:**
-- Image attachments included in LLM context as base64
-- Support JPEG, PNG, GIF, WebP
-- Works with vision-capable models (GPT-4o, Claude, Gemini)
-- Graceful fallback for non-vision models
-- Telegram: auto-download photos and include in context
+- Image attachments included in LLM context as base64 ✅
+- Support JPEG, PNG, GIF, WebP (via mimetypes detection) ✅
+- Works with vision-capable models (GPT-4o, Claude, Gemini) ✅
+- Graceful fallback for non-vision models (text-only content if no images) ✅
+- Telegram: auto-download photos and include in context ✅
 
 **Test:** `TEST-MODAL-001`
 
-**Commits:** -
+**Commits:** `f4b081b`, `ac39025`
 
 ---
 
@@ -543,4 +546,4 @@
 
 ---
 
-*Total: 22 | Done: 0 | In Progress: 0 | Pending: 10 | Legacy: 12*
+*Total: 22 | Done: 0 | In Progress: 0 | Pending: 9 | Legacy: 13*
